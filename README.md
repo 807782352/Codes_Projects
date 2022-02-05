@@ -1,2 +1,2 @@
 # Java_projects
-Some self practical projects in Java 
+Some self practical projects in Java, Python and C++
