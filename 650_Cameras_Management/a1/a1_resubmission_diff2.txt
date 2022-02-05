@@ -1,0 +1,28 @@
+36,39c36,45
+<         for edge in edges_list:
+<             str_E += "\t"
+<             str_E += edge
+<             str_E += "\n"
+---
+>         # Change the format of Edge-printing with comma
+>         for e in range(len(edges_list)):
+>             if e != (len(edges_list) - 1):
+>                 str_E += "\t"
+>                 str_E += edges_list[e]
+>                 str_E += ",\n"
+>             else:
+>                 str_E += "\t"
+>                 str_E += edges_list[e]
+>                 str_E += "\n"
+103c109
+<                 print("Street Name is used!")
+---
+>                 print("Error: street currently exists.")
+118c124
+<                 print("No such street! You do not need to modify!")
+---
+>                 print("Error: 'mod' or 'rm' specified for a street that does not exist.")
+131c137
+<                 print("No such street! You do not need to delete!")
+---
+>                 print("Error: 'mod' or 'rm' specified for a street that does not exist.")
