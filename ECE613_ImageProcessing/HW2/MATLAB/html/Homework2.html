@@ -1,0 +1,1312 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Homework2</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-03-02"><meta name="DC.source" content="Homework2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Question 1</span>
+<span class="comment">% Reference: https://www.geeksforgeeks.org/extract-bit-planes-image-matlab/</span>
+<span class="comment">% Read the image</span>
+img = imread(<span class="string">'slope.tif'</span>);
+
+<span class="comment">% Storing image information in img2</span>
+img2 = double(img);
+
+<span class="comment">% Figure 1 - Show the upper 4 bitplanes in 4 sub-figures</span>
+figure(2);
+
+<span class="comment">% Use mod to find 8 different significant bitplane</span>
+<span class="comment">% b1 is the most significant bitplane, and so on</span>
+b4 = mod(floor(img2/(pow2(4))),2);
+b3 = mod(floor(img2/(pow2(5))),2);
+b2 = mod(floor(img2/(pow2(6))),2);
+b1 = mod(floor(img2/(pow2(7))),2);
+
+<span class="comment">% Plot each upper 4 most significant bitplanes</span>
+subplot(2,2,1);
+imshow(b1);
+title(<span class="string">'1st MSB'</span>);
+
+subplot(2,2,2);
+imshow(b2);
+title(<span class="string">'2nd MSB'</span>);
+
+subplot(2,2,3);
+imshow(b3);
+title(<span class="string">'3rd MSB'</span>);
+
+subplot(2,2,4);
+imshow(b4);
+title(<span class="string">'4th MSB'</span>);
+
+sgtitle(<span class="string">'Figure 1 - Upper 4 Most Significant Bitplanes'</span>);
+<span class="comment">% Figure 2  - Show the lower 4 bitplanes</span>
+figure(3);
+
+<span class="comment">% Use mod to find 8 different significant bitplane</span>
+<span class="comment">% b8 is the least significant bitplane, and so on</span>
+b8 = mod(floor(img2/(pow2(0))),2);
+b7 = mod(floor(img2/(pow2(1))),2);
+b6 = mod(floor(img2/(pow2(2))),2);
+b5 = mod(floor(img2/(pow2(3))),2);
+
+subplot(2,2,1);
+imshow(b8);
+title(<span class="string">'1st LSB'</span>);
+
+subplot(2,2,2);
+imshow(b7);
+title(<span class="string">'2nd LSB'</span>);
+
+subplot(2,2,3);
+imshow(b6);
+title(<span class="string">'3rd LSB'</span>);
+
+subplot(2,2,4);
+imshow(b5);
+title(<span class="string">'4th LSB'</span>);
+
+sgtitle(<span class="string">'Figure 2 - Lower 4 Least Significant bitplanes'</span>);
+<span class="comment">% Figure 3 - Reconstructed Images using the Upper 1, 2, 3 and 4 bitplanes</span>
+figure(4);
+
+r1 = b1 * pow2(7);
+r2 = r1 + b2 * pow2(6);
+r3 = r2 + b3 * pow2(5);
+r4 = r3 + b4 * pow2(4);
+
+subplot(2,2,1);
+imshow(uint8(r1));
+title(<span class="string">'Upper 1 bitplanes'</span>);
+
+subplot(2,2,2);
+imshow(uint8(r2));
+title(<span class="string">'Upper 2 bitplanes'</span>);
+
+subplot(2,2,3);
+imshow(uint8(r3));
+title(<span class="string">'Upper 3 bitplanes'</span>);
+
+subplot(2,2,4);
+imshow(uint8(r4));
+title(<span class="string">'Upper 4 bitplanes'</span>);
+
+sgtitle(<span class="string">'Figure 3 - Upper 1,2,3 and 4 Bitplanes'</span>);
+<span class="comment">% Figure 4 - Reconstructed Images by Using the Upper 5, 6, 7 and 8 Bitplanes</span>
+figure(5);
+
+r5 = r4 + b5 * pow2(3);
+r6 = r5 + b6 * pow2(2);
+r7 = r6 + b7 * pow2(1);
+r8 = r7 + b8 * pow2(0);
+
+subplot(2,2,1);
+imshow(uint8(r5));
+title(<span class="string">'Upper 5 bitplanes'</span>);
+
+subplot(2,2,2);
+imshow(uint8(r6));
+title(<span class="string">'Upper 6 bitplanes'</span>);
+
+subplot(2,2,3);
+imshow(uint8(r7));
+title(<span class="string">'Upper 7 bitplanes'</span>);
+
+subplot(2,2,4);
+imshow(uint8(r8));
+title(<span class="string">'Upper 8 bitplanes'</span>);
+
+sgtitle(<span class="string">'Figure 4 - Upper 5,6,7 and 8 Bitplanes'</span>);
+<span class="comment">% Observations</span>
+<span class="comment">% Based on the results from 4 figures shown above, we can observe that with increasing numbers of upper bitplanes (from using the most significant bitplane only to using all 8 bitplanes), the reconstructed images are more and more similar to the original image. Specially, the reconstruced image using all bitplanes is almost the same as the original image.</span>
+
+<span class="comment">% Question 2: Intensity Transformations</span>
+<span class="comment">% 2.1 Gamma Mapping</span>
+clear;
+img = imread(<span class="string">'books.tif'</span>);
+img = double(img);
+
+<span class="comment">% Normalize the image (Scale from [0-255] to [0,1])</span>
+scaleImg = img / 255;
+
+<span class="comment">% Setup the Gamma</span>
+gamma_val = 0.5;
+
+gammaImg = scaleImg .^ gamma_val;
+
+newImg = round(gammaImg .* 255);
+<span class="comment">% 2.2 Full-Scale Contrast Strectch</span>
+<span class="comment">% Find the minimum pixel of the image</span>
+r_min = min(img(:));
+<span class="comment">% Find the maximum pixel of the image</span>
+r_max = max(img(:));
+
+newImg2 = round((255./(r_max-r_min)).*(img - r_min));
+<span class="comment">% 2.3 Histogram Equalization</span>
+<span class="comment">% Get the rows and columns of the image</span>
+[row,col] = size(img);
+
+<span class="comment">% Pre-set the histogram</span>
+p_hist = zeros(256,1);
+newImg3 = zeros(row,col);
+
+<span class="comment">% Calculate the histogram</span>
+<span class="keyword">for</span> i = 1 : row
+    <span class="keyword">for</span> j = 1 : col
+        intensity = img(i,j);
+        p_hist(intensity+1) = p_hist(intensity+1) + 1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Calculate the pdf</span>
+pdf = p_hist / (row * col);
+
+<span class="comment">% Calculate the cdf</span>
+cdf = cumsum(pdf);
+
+<span class="comment">% Get the histogram equalized image</span>
+<span class="keyword">for</span> i = 1 : row
+    <span class="keyword">for</span> j = 1 : col
+        newImg3(i,j) = round(cdf(img(i,j)+1) * 255);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% 2.4 Figure 1 - Graphs Demostration</span>
+figure(6);
+subplot(2,2,1);
+imshow(uint8(img));
+title(<span class="string">"Original image - Books"</span>);
+
+subplot(2,2,2);
+imshow(uint8(newImg));
+title(<span class="string">"Gamma Mapping, with gamma = 0.5"</span>);
+
+subplot(2,2,3);
+imshow(uint8(newImg2));
+title(<span class="string">"Full-scale Contrast Stretched Image"</span>);
+
+subplot(2,2,4);
+imshow(uint8(newImg3));
+title(<span class="string">"Histogram Equalization"</span>);
+
+sgtitle(<span class="string">"Figure 1 - Graphs Demostration"</span>);
+<span class="comment">% 2.5 Figure 2 - Histogram for Each Graph</span>
+figure(7);
+nbins = 256;
+subplot(2,2,1);
+histogram(img,0:255);
+title(<span class="string">"Original image"</span>);
+
+subplot(2,2,2);
+histogram(newImg,0:255);
+title(<span class="string">"Gamma Mapping, with gamma = 0.5"</span>);
+
+subplot(2,2,3);
+histogram(newImg2,0:255);
+title(<span class="string">"Full-scale Contrast Stretched Image"</span>);
+
+subplot(2,2,4);
+histogram(newImg3,0:255);
+title(<span class="string">"Histogram Equalization"</span>);
+
+sgtitle(<span class="string">"Figure 2 - Histograms for Each Graph"</span>);
+<span class="comment">% Observations:</span>
+<span class="comment">% Based on the result, we can observe that:</span>
+<span class="comment">% 1) Gamma Mapping can change the overall brightness of the image. With gamma = 0.5, overall image becomes brigher than the original one.</span>
+<span class="comment">% 2) Full-scale contrast stretched image can increase the contrast of the original image. From the resulted histogram (bottom-left), we can see that the full-scale contrast stretched image increases the difference between the maximum intensity and the minimum intensity in the original image. All of the rest intensities are "streched" out between the maximum and minimum intensities.</span>
+<span class="comment">% 3) Histogram Equlized image can also increase the contrast of the original image. From tnhe resulted histogram (bottom-right), we can see that the histogram equalization wants to "flatten" the histogram into a uniform distribution.</span>
+<span class="comment">% 4) Although full-scale contrast stretch and histogram equalization can increase the contrast, histogram equalizaion has a better result than full-scale contrast stretch, based on the results.</span>
+
+<span class="comment">%  Question 3 - Frequency Domain Filtering</span>
+clear;
+<span class="comment">% Reference: https://www.cs.uregina.ca/Links/class-info/425/Lab5/index.html</span>
+
+img = imread(<span class="string">'bridge.tif'</span>);
+img = double(img);
+<span class="comment">% 3.1 Apply 2D-DFT</span>
+<span class="comment">% Calculate 2D-DFT of the original image into frequency domain</span>
+F = fft2(img);
+
+<span class="comment">% Use the abs function to compute the magniture of the combined components,</span>
+<span class="comment">% because there are real and imaginary parts to F</span>
+F_center = fftshift(F);
+<span class="comment">% 3.2 Apply the Ideal Lowpass Filters to the Frouier Transform of the image</span>
+<span class="comment">% Define the lowpass filter</span>
+lowpassF = lowpassFilter(F_center, 1/8);
+<span class="comment">% Apply the lowpass filter to the frouier transform of the image</span>
+LPF_img_center = lowpassF.*F_center;
+<span class="comment">% Shift the result back</span>
+LPF_img_F = ifftshift(LPF_img_center);
+<span class="comment">% Calculate inverse 2D-DFT to get the image in spatial domain</span>
+LPF_img = real(ifft2(LPF_img_F));
+<span class="comment">% 3.3 Apply the Ideal Bandpass Filters to the Frouier Transform of the image</span>
+<span class="comment">% Define the bandpass filter</span>
+bandpassF = bandpassFilter(F_center, 1/8, 1/2);
+<span class="comment">% Apply the bandpass filter to the frouier transform of the image</span>
+BPF_img_center = bandpassF.*F_center;
+<span class="comment">% Shift the result back</span>
+BPF_img_F = ifftshift(BPF_img_center);
+<span class="comment">% Calculate inverse 2D-DFT to get the image in spatial domain</span>
+BPF_img = real(ifft2(BPF_img_F));
+<span class="comment">% 3.4 Apply the Ideal Highpass Filters to the Frouier Transform of the image</span>
+<span class="comment">% Define the highpass filter</span>
+highpassF = highpassFilter(F_center, 1/2);
+<span class="comment">% Apply the bandpass filter to the frouier transform of the image</span>
+HPF_img_center = highpassF.*F_center;
+<span class="comment">% Shift the result back</span>
+HPF_img_F = ifftshift(HPF_img_center);
+<span class="comment">% Calculate inverse 2D-DFT to get the image in spatial domain</span>
+HPF_img = real(ifft2(HPF_img_F));
+<span class="comment">% 3.5 Figure 1 - Images in the Spatial Domain</span>
+figure(8);
+subplot(2,2,1);
+imshow(uint8(img));
+title(<span class="string">"Original Image - Bridge"</span>);
+
+subplot(2,2,2);
+imshow(uint8(LPF_img));
+title(<span class="string">"Lowpass Filtered"</span>);
+
+subplot(2,2,3);
+<span class="comment">% Add 128 to all pixels so that the negative values</span>
+<span class="comment">% are darker than the mid-gray and the positive values</span>
+<span class="comment">% are brighter than the mid-gray</span>
+imshow(uint8((BPF_img + 128)));
+title(<span class="string">"Bandpass Filtered"</span>);
+
+subplot(2,2,4);
+imshow(uint8((HPF_img + 128)));
+title(<span class="string">"Highpass Filtered"</span>);
+
+sgtitle(<span class="string">"Figure 1 - Images in the Spatial Domain"</span>);
+<span class="comment">% 3.6 Figure 2 - Amplitude Spectra of Each Image</span>
+figure(9);
+subplot(2,2,1);
+F_c = log(1+abs(F_center));
+<span class="comment">% Find the brightest point in the frequency domain</span>
+r_max = max(F_c(:));
+r_min = 0;
+<span class="comment">% Do the normalization so that the brightest white point</span>
+<span class="comment">% maps to the brightest value 1 and all other values are</span>
+<span class="comment">% between 0 and 1</span>
+F_norm = (F_c / r_max);
+imshow(F_norm);
+title(<span class="string">"Original"</span>);
+
+subplot(2,2,2);
+LPF_c = log(1+abs(LPF_img_center));
+LPF_norm = (1./(r_max-r_min)).*(LPF_c - r_min);
+imshow(LPF_norm);
+title(<span class="string">"Lowpass Filtered"</span>);
+
+subplot(2,2,3);
+BPF_c = log(1+abs(BPF_img_center));
+BPF_norm = (1./(r_max-r_min)).*(BPF_c - r_min);
+imshow(BPF_norm);
+title(<span class="string">"Bandpass Filtered"</span>);
+
+subplot(2,2,4);
+HPF_c = log(1+abs(HPF_img_center));
+HPF_norm = (1./(r_max-r_min)).*(HPF_c - r_min);
+imshow(HPF_norm);
+title(<span class="string">"Highpass Filtered"</span>);
+
+sgtitle(<span class="string">"Figure 2 - Amplitude Spectra of Each Image"</span>)
+<span class="comment">% Observations:</span>
+<span class="comment">% Because we shifted the frequency domain, most important information are concentrated around the center point, and other less important information are away from the center point.</span>
+<span class="comment">% 1) The lowpass filtered image is blurred than the original one. The possible reason is that lowpass filter keep the center part in the frequency spectra, which means it keep most important information of the original image. But the lowpass filter blocks other less important information as well, so the filtered image is blurred compared to the original image.</span>
+<span class="comment">% 2) The resulted image using bandpass filter can see the basic layout of the the object (i.e. bridge), however it is hard to recognize without the original image. It is possibly because the bandpass filter pass the information close to the center part but without the center part, which means it can still get some important information but not those most important information of the original image. Therefore the filtered image can still shows some features (i.e. some layouts of the bridge).</span>
+<span class="comment">% 3) The highpass filtered image can only see some unclear edges of the object, which is very hard to recognize what the image is. It is because the highpass filter blocks all important information in the center and pass the least important information of the original image.</span>
+
+<span class="comment">% Question 4 - Image Deblurring</span>
+<span class="comment">% 4.1 Spatial Domain Gaussian Filter Creation</span>
+clear;
+
+img = imread(<span class="string">'text.tif'</span>);
+
+gf = zeros(21,21);
+gf_row = 21;
+gf_col = 21;
+center = round(gf_row/2);
+
+<span class="comment">% Do the normalized Gaussian Filter</span>
+sigma = 1;
+<span class="keyword">for</span> i = 1:21
+    <span class="keyword">for</span> j = 1:21
+        gf(i,j) = (1/(2*pi*sigma^2))*exp(-((i-center)^2+(j-center)^2)/(2*sigma^2));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+gf = gf./sum(gf(:));
+<span class="comment">% 4.2 Blurred Image</span>
+<span class="comment">% Make a convolution between image and Gaussian Filter</span>
+ConvImg = conv2(img,gf);
+[row1,col1] = size(ConvImg);
+
+<span class="comment">% Crop the central part of the image</span>
+cropImg1 = ConvImg(row1/2 - 127:row1/2 + 128, col1 / 2 - 127: col1 / 2 + 128);
+<span class="comment">% 4.3 Apply 2D-DFT and Inverse 2D-DFT of the Gaussian Filter</span>
+<span class="comment">% Change Gaussian Filter into the frequency domain</span>
+gauss_F = fft2(gf);
+<span class="comment">% Take the reciprocal value of all frequency domain Gaussian Filter</span>
+<span class="comment">% Coefficients</span>
+gauss_F_reci = 1./gauss_F;
+
+<span class="comment">% Do the inverse 2D-DFT of the Gaussian Filter in frequency domain</span>
+gf_inv = real(ifft2(gauss_F_reci));
+<span class="comment">% 4.4 Deblurred Image</span>
+ConvImg2 = conv2(ConvImg, gf_inv);
+[row2,col2] = size(ConvImg2);
+
+cropImg2 = ConvImg2(row2/2 - 127:row2/2 + 128, col2 / 2 - 127: col2 / 2 + 128);
+<span class="comment">% 4.5 Figure 1 - Demostration</span>
+figure(10);
+subplot(2,3,1);
+imshow(img);
+title(<span class="string">"Origial Image - text"</span>);
+
+subplot(2,3,2);
+imshow(uint8(cropImg1));
+title(<span class="string">"Blurred Image"</span>);
+
+subplot(2,3,3);
+imshow(uint8(cropImg2));
+title(<span class="string">"Deblurred Image"</span>);
+
+<span class="comment">% Calculate 2D-DFT of the original image into frequency domain</span>
+subplot(2,3,4);
+F = fft2(img);
+F_center = fftshift(F);
+F_c = log(1+abs(F_center));
+<span class="comment">% Find the brightest point in the frequency domain</span>
+r_max = max(F_c,[],<span class="string">'all'</span>);
+r_min = 0;
+F_norm = (1./(r_max-r_min)).*(F_c - r_min);
+imshow(F_norm);
+title(<span class="string">"Original Spectra"</span>);
+
+subplot(2,3,5);
+crop1_F = fft2(cropImg1);
+crop1_F_center = fftshift(crop1_F);
+crop1_F_c = log(1+abs(crop1_F_center));
+r_max = max(crop1_F_c,[],<span class="string">'all'</span>);
+crop1_F_norm = (1./(r_max-r_min)).*(crop1_F_c - r_min);
+imshow(crop1_F_norm);
+title(<span class="string">"Blurred Image Spectra"</span>);
+
+subplot(2,3,6);
+crop2_F = fft2(cropImg2);
+crop2_F_center = fftshift(crop2_F);
+crop2_F_c = log(1+abs(crop2_F_center));
+r_max = max(crop2_F_c,[],<span class="string">'all'</span>);
+crop2_F_norm = (1./(r_max-r_min)).*(crop2_F_c - r_min);
+imshow(crop2_F_norm);
+title(<span class="string">"Deblurred Image Spectra"</span>);
+sgtitle(<span class="string">"Figure 1 - Images and Spectras"</span>);
+<span class="comment">% 4.6 Figure 2 - Magnitude Spectrum</span>
+figure(11);
+subplot(2,2,1);
+mesh(gf);
+title(<span class="string">"Spatial Domain GF"</span>);
+
+subplot(2,2,2);
+mesh(abs(fftshift(gauss_F)));
+title(<span class="string">"Frouier Domian GF"</span>);
+
+subplot(2,2,3);
+mesh(gf_inv);
+title(<span class="string">"Spatial Domain inverse GF"</span>);
+
+subplot(2,2,4);
+mesh(abs(fftshift(gauss_F_reci)));
+title(<span class="string">"Frouier Domain inverse GF"</span>);
+
+sgtitle(<span class="string">"Figure 2 - Magnitude Spectrum"</span>);
+<span class="comment">% Observation:</span>
+<span class="comment">% From the results between original image and deblurred image. In theory, these two images should be exactly same. However, when we see the deblurred image clearly, there are some light shadows in the deblurred image.</span>
+
+Question <span class="string">5</span> <span class="string">-</span> <span class="string">Image</span> <span class="string">Interpolation</span>
+clear;
+
+img = imread(<span class="string">'einstein.tif'</span>);
+img = double(img);
+[row, col] = size(img);
+factor = 3;
+<span class="comment">% 5.1 Downsample the Image</span>
+downSampled = downSample(img,factor);
+<span class="comment">% 5.2 Upsample the Image with Zero-Padding</span>
+upSampled = upSample(downSampled,row, col, factor);
+<span class="comment">% 5.3 Interpolated Image with Nearest Neighbor Method</span>
+mask3n = ones(1,factor);
+nnImg_h = zeros(row, col);
+nnImg = zeros(row,col);
+
+<span class="keyword">for</span> i = 1 : row
+    nnImg_h(i,:) = conv(upSampled(i,:), mask3n, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> j = 1 : col
+    nnImg(:,j) = conv(nnImg_h(:,j),mask3n, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+<span class="comment">% 5.4 Interpolated Image with Bilinear Interpolation Method</span>
+mask3b = BIM(factor);
+bimImg_h = zeros(row,col);
+bimImg = zeros(row,col);
+
+<span class="keyword">for</span> i = 1 : row
+    bimImg_h(i,:) = conv(upSampled(i,:), mask3b, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> j = 1 : col
+    bimImg(:,j) = conv(bimImg_h(:,j), mask3b, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+<span class="comment">% 5.5 Figure 1 - Demo for Case D = 3</span>
+figure(12);
+subplot(2,2,1);
+imshow(img,[]);
+title(<span class="string">"Original Image"</span>);
+
+subplot(2,2,2);
+imshow(upSampled,[]);
+title(<span class="string">"Upsampled Image"</span>);
+
+subplot(2,2,3);
+imshow(nnImg,[]);
+title(<span class="string">"Interpolated Image (Nearest Neighbor Method)"</span>);
+
+subplot(2,2,4);
+imshow(bimImg, []);
+title(<span class="string">"Interpolated Image (Bilinear Interpolation)"</span>);
+
+sgtitle(<span class="string">"Figure 1 - Demo for Case D = 3"</span>);
+<span class="comment">% 5.6 Figure 2 - Deom for Case D = 7</span>
+factor = 7;
+<span class="comment">% Downsample the original image</span>
+downSampled7 = downSample(img,factor);
+<span class="comment">% Upsample the downsampled iamge</span>
+upSampled7 = upSample(downSampled7,row, col, factor);
+
+<span class="comment">% Upsample by Nearest neighbor method</span>
+mask7n = ones(1,factor);
+nnImg_h7 = zeros(row,col);
+nnImg7 = zeros(row,col);
+
+<span class="keyword">for</span> i = 1 : row
+    nnImg_h7(i,:) = conv(upSampled7(i,:),mask7n, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> j = 1 : col
+    nnImg7(:,j) = conv(nnImg_h7(:,j),mask7n, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+<span class="comment">% Upsmaple by Biliniear Interpolation</span>
+mask7b = BIM(factor);
+bimImg_h7 = zeros(row,col);
+bimImg7 = zeros(row,col);
+
+<span class="keyword">for</span> i = 1 : row
+    bimImg_h7(i,:) = conv(upSampled7(i,:),mask7b, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> j = 1 : col
+    bimImg7(:,j) = conv(bimImg_h7(:,j),mask7b, <span class="string">'same'</span>);
+<span class="keyword">end</span>
+
+figure(13);
+subplot(2,2,1);
+imshow(img,[]);
+title(<span class="string">"Original Image"</span>);
+
+subplot(2,2,2);
+imshow(upSampled7,[]);
+title(<span class="string">"Upsampled Image"</span>);
+
+subplot(2,2,3);
+imshow(nnImg7,[]);
+title(<span class="string">"Interpolated Image (Nearest Neighbor Method)"</span>);
+
+subplot(2,2,4);
+imshow(bimImg7, []);
+title(<span class="string">"Interpolated Image (Bilinear Interpolation)"</span>);
+
+sgtitle(<span class="string">"Figure 2 - Demo for Case D = 7"</span>);
+<span class="comment">% Observation:</span>
+<span class="comment">% 1) With the increaing number of the factor D, the upsampled images become blurrer and blurrer.</span>
+<span class="comment">% 2) Upsampled images using nearest neighbor interpolation make the image mosaic-styled, while the images using bilinear interpolation make the image much more smoother (still blurred) compared to the corresponding image using nearest neighbor interpolation.</span>
+
+Function <span class="string">1</span> <span class="string">-</span>  <span class="string">Ideal</span> <span class="string">Lowpass</span> <span class="string">Filters</span> <span class="string">Function</span>
+<span class="keyword">function</span> filter = lowpassFilter(src, d0)
+    [row, col] = size(src);
+    row_center = row/2;
+    col_center = col/2;
+    d0 = row_center * d0;
+
+    filter = zeros(row,col);
+    <span class="keyword">for</span> i = 1 : row
+        <span class="keyword">for</span> j = 1 : col
+            dist = sqrt((i - row_center)^2 + (j - col_center)^2);
+            <span class="keyword">if</span> dist &lt; d0
+                filter(i,j) = 1;
+            <span class="keyword">else</span>
+                filter(i,j) = 0;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% Function 2 - Ideal Bandpass Filters Function</span>
+<span class="keyword">function</span> filter = bandpassFilter(src, d0, d1)
+    [row, col] = size(src);
+    row_center = row/2;
+    col_center = col/2;
+    d0 = row_center * d0;
+    d1 = row_center * d1;
+
+    filter = zeros(row,col);
+    <span class="keyword">for</span> i = 1 : row
+        <span class="keyword">for</span> j = 1 : col
+            dist = sqrt((i - row_center).^2 + (j - col_center).^2);
+            <span class="keyword">if</span> dist &lt; d0
+                filter(i,j) = 0;
+            <span class="keyword">elseif</span> dist &gt; d1
+                filter(i,j) = 0;
+            <span class="keyword">else</span>
+                filter(i,j) = 1;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% Function 3 -  Ideal Highpass Filters Function</span>
+<span class="keyword">function</span> filter = highpassFilter(src, d1)
+    [row, col] = size(src);
+    row_center = row/2;
+    col_center = col/2;
+    d1 = row_center * d1;
+
+    filter = zeros(row,col);
+    <span class="keyword">for</span> i = 1 : row
+        <span class="keyword">for</span> j = 1 : col
+            dist = sqrt((i - row_center).^2 + (j - col_center).^2);
+            <span class="keyword">if</span> dist &lt;= d1
+                filter(i,j) = 0;
+            <span class="keyword">else</span>
+                filter(i,j) = 1;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% Function 4 - Downsample Image Function</span>
+<span class="keyword">function</span> resizeImg = downSample(src, factor)
+    resizeImg = src((factor+1)/2:factor:end, (factor+1)/2:factor:end);
+<span class="keyword">end</span>
+<span class="comment">% Function 5 - Upsample Image With Zero-Padding Function</span>
+<span class="keyword">function</span> resizeImg = upSample(src, row, col ,factor)
+    resizeImg = zeros(row,col);
+    <span class="keyword">for</span> i = 1 : row
+        <span class="keyword">for</span> j = 1 : col
+            <span class="keyword">if</span> (mod(i,factor) == 0 &amp;&amp; mod(j,factor) == 0)
+                resizeImg(i,j) = src(i/factor,j/factor);
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Function 6 - Interpolation with Bilinear Interpolation Method Function</span>
+<span class="keyword">function</span> mask_h = BIM(factor)
+    mask_h = ones(1,2*factor-1);
+    <span class="keyword">for</span> i = factor - 1 : -1 : 1
+        mask_h(1,i) = (1 - (1/factor) * (factor - i));
+    <span class="keyword">end</span>
+    <span class="keyword">for</span> i = factor + 1 : 2*factor-1
+        mask_h(1,i) = (1 - (1/factor) * (i - factor));
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">&#26410;&#23450;&#20041;&#19982; 'char' &#31867;&#22411;&#30340;&#36755;&#20837;&#21442;&#25968;&#30456;&#23545;&#24212;&#30340;&#20989;&#25968; 'Question'&#12290;
+
+&#20986;&#38169; Homework2 (&#31532; 420 &#34892;)
+Question 5 - Image Interpolation
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Question 1
+% Reference: https://www.geeksforgeeks.org/extract-bit-planes-image-matlab/
+% Read the image
+img = imread('slope.tif');
+
+% Storing image information in img2
+img2 = double(img);
+
+% Figure 1 - Show the upper 4 bitplanes in 4 sub-figures 
+figure(2);
+
+% Use mod to find 8 different significant bitplane
+% b1 is the most significant bitplane, and so on
+b4 = mod(floor(img2/(pow2(4))),2);
+b3 = mod(floor(img2/(pow2(5))),2);
+b2 = mod(floor(img2/(pow2(6))),2);
+b1 = mod(floor(img2/(pow2(7))),2);
+
+% Plot each upper 4 most significant bitplanes
+subplot(2,2,1);
+imshow(b1);
+title('1st MSB');
+
+subplot(2,2,2);
+imshow(b2);
+title('2nd MSB');
+
+subplot(2,2,3);
+imshow(b3);
+title('3rd MSB');
+
+subplot(2,2,4);
+imshow(b4);
+title('4th MSB');
+
+sgtitle('Figure 1 - Upper 4 Most Significant Bitplanes');
+% Figure 2  - Show the lower 4 bitplanes
+figure(3);
+
+% Use mod to find 8 different significant bitplane
+% b8 is the least significant bitplane, and so on
+b8 = mod(floor(img2/(pow2(0))),2);
+b7 = mod(floor(img2/(pow2(1))),2);
+b6 = mod(floor(img2/(pow2(2))),2);
+b5 = mod(floor(img2/(pow2(3))),2);
+
+subplot(2,2,1);
+imshow(b8);
+title('1st LSB');
+
+subplot(2,2,2);
+imshow(b7);
+title('2nd LSB');
+
+subplot(2,2,3);
+imshow(b6);
+title('3rd LSB');
+
+subplot(2,2,4);
+imshow(b5);
+title('4th LSB');
+
+sgtitle('Figure 2 - Lower 4 Least Significant bitplanes');
+% Figure 3 - Reconstructed Images using the Upper 1, 2, 3 and 4 bitplanes
+figure(4);
+
+r1 = b1 * pow2(7);
+r2 = r1 + b2 * pow2(6);
+r3 = r2 + b3 * pow2(5);
+r4 = r3 + b4 * pow2(4);
+
+subplot(2,2,1);
+imshow(uint8(r1));
+title('Upper 1 bitplanes');
+
+subplot(2,2,2);
+imshow(uint8(r2));
+title('Upper 2 bitplanes');
+
+subplot(2,2,3);
+imshow(uint8(r3));
+title('Upper 3 bitplanes');
+
+subplot(2,2,4);
+imshow(uint8(r4));
+title('Upper 4 bitplanes');
+
+sgtitle('Figure 3 - Upper 1,2,3 and 4 Bitplanes');
+% Figure 4 - Reconstructed Images by Using the Upper 5, 6, 7 and 8 Bitplanes
+figure(5);
+
+r5 = r4 + b5 * pow2(3);
+r6 = r5 + b6 * pow2(2);
+r7 = r6 + b7 * pow2(1);
+r8 = r7 + b8 * pow2(0);
+
+subplot(2,2,1);
+imshow(uint8(r5));
+title('Upper 5 bitplanes');
+
+subplot(2,2,2);
+imshow(uint8(r6));
+title('Upper 6 bitplanes');
+
+subplot(2,2,3);
+imshow(uint8(r7));
+title('Upper 7 bitplanes');
+
+subplot(2,2,4);
+imshow(uint8(r8));
+title('Upper 8 bitplanes');
+
+sgtitle('Figure 4 - Upper 5,6,7 and 8 Bitplanes');
+% Observations
+% Based on the results from 4 figures shown above, we can observe that with increasing numbers of upper bitplanes (from using the most significant bitplane only to using all 8 bitplanes), the reconstructed images are more and more similar to the original image. Specially, the reconstruced image using all bitplanes is almost the same as the original image. 
+
+% Question 2: Intensity Transformations
+% 2.1 Gamma Mapping
+clear;
+img = imread('books.tif');
+img = double(img);
+
+% Normalize the image (Scale from [0-255] to [0,1])
+scaleImg = img / 255;     
+
+% Setup the Gamma
+gamma_val = 0.5;
+
+gammaImg = scaleImg .^ gamma_val;
+
+newImg = round(gammaImg .* 255);
+% 2.2 Full-Scale Contrast Strectch
+% Find the minimum pixel of the image
+r_min = min(img(:));
+% Find the maximum pixel of the image
+r_max = max(img(:));
+
+newImg2 = round((255./(r_max-r_min)).*(img - r_min));
+% 2.3 Histogram Equalization
+% Get the rows and columns of the image
+[row,col] = size(img);
+
+% Pre-set the histogram
+p_hist = zeros(256,1);
+newImg3 = zeros(row,col);
+
+% Calculate the histogram
+for i = 1 : row
+    for j = 1 : col
+        intensity = img(i,j);
+        p_hist(intensity+1) = p_hist(intensity+1) + 1;
+    end
+end 
+
+% Calculate the pdf
+pdf = p_hist / (row * col);
+        
+% Calculate the cdf
+cdf = cumsum(pdf);
+
+% Get the histogram equalized image
+for i = 1 : row
+    for j = 1 : col
+        newImg3(i,j) = round(cdf(img(i,j)+1) * 255);
+    end
+end
+% 2.4 Figure 1 - Graphs Demostration
+figure(6);
+subplot(2,2,1);
+imshow(uint8(img));
+title("Original image - Books");
+
+subplot(2,2,2);
+imshow(uint8(newImg));
+title("Gamma Mapping, with gamma = 0.5");
+
+subplot(2,2,3);
+imshow(uint8(newImg2));
+title("Full-scale Contrast Stretched Image");
+
+subplot(2,2,4);
+imshow(uint8(newImg3));
+title("Histogram Equalization");
+
+sgtitle("Figure 1 - Graphs Demostration");
+% 2.5 Figure 2 - Histogram for Each Graph
+figure(7);
+nbins = 256;
+subplot(2,2,1);
+histogram(img,0:255);
+title("Original image");
+
+subplot(2,2,2);
+histogram(newImg,0:255);
+title("Gamma Mapping, with gamma = 0.5");
+
+subplot(2,2,3);
+histogram(newImg2,0:255);
+title("Full-scale Contrast Stretched Image");
+
+subplot(2,2,4);
+histogram(newImg3,0:255);
+title("Histogram Equalization");
+
+sgtitle("Figure 2 - Histograms for Each Graph");
+% Observations:
+% Based on the result, we can observe that:
+% 1) Gamma Mapping can change the overall brightness of the image. With gamma = 0.5, overall image becomes brigher than the original one.
+% 2) Full-scale contrast stretched image can increase the contrast of the original image. From the resulted histogram (bottom-left), we can see that the full-scale contrast stretched image increases the difference between the maximum intensity and the minimum intensity in the original image. All of the rest intensities are "streched" out between the maximum and minimum intensities.
+% 3) Histogram Equlized image can also increase the contrast of the original image. From tnhe resulted histogram (bottom-right), we can see that the histogram equalization wants to "flatten" the histogram into a uniform distribution.
+% 4) Although full-scale contrast stretch and histogram equalization can increase the contrast, histogram equalizaion has a better result than full-scale contrast stretch, based on the results.
+
+%  Question 3 - Frequency Domain Filtering
+clear;
+% Reference: https://www.cs.uregina.ca/Links/class-info/425/Lab5/index.html
+
+img = imread('bridge.tif');
+img = double(img);
+% 3.1 Apply 2D-DFT
+% Calculate 2D-DFT of the original image into frequency domain
+F = fft2(img);
+
+% Use the abs function to compute the magniture of the combined components,
+% because there are real and imaginary parts to F
+F_center = fftshift(F);
+% 3.2 Apply the Ideal Lowpass Filters to the Frouier Transform of the image
+% Define the lowpass filter
+lowpassF = lowpassFilter(F_center, 1/8);
+% Apply the lowpass filter to the frouier transform of the image
+LPF_img_center = lowpassF.*F_center;
+% Shift the result back
+LPF_img_F = ifftshift(LPF_img_center);
+% Calculate inverse 2D-DFT to get the image in spatial domain
+LPF_img = real(ifft2(LPF_img_F));
+% 3.3 Apply the Ideal Bandpass Filters to the Frouier Transform of the image
+% Define the bandpass filter
+bandpassF = bandpassFilter(F_center, 1/8, 1/2);
+% Apply the bandpass filter to the frouier transform of the image
+BPF_img_center = bandpassF.*F_center;
+% Shift the result back
+BPF_img_F = ifftshift(BPF_img_center);
+% Calculate inverse 2D-DFT to get the image in spatial domain
+BPF_img = real(ifft2(BPF_img_F));
+% 3.4 Apply the Ideal Highpass Filters to the Frouier Transform of the image
+% Define the highpass filter
+highpassF = highpassFilter(F_center, 1/2);
+% Apply the bandpass filter to the frouier transform of the image
+HPF_img_center = highpassF.*F_center;
+% Shift the result back
+HPF_img_F = ifftshift(HPF_img_center);
+% Calculate inverse 2D-DFT to get the image in spatial domain
+HPF_img = real(ifft2(HPF_img_F));
+% 3.5 Figure 1 - Images in the Spatial Domain
+figure(8);
+subplot(2,2,1);
+imshow(uint8(img));
+title("Original Image - Bridge");
+
+subplot(2,2,2);
+imshow(uint8(LPF_img));
+title("Lowpass Filtered");
+
+subplot(2,2,3);
+% Add 128 to all pixels so that the negative values 
+% are darker than the mid-gray and the positive values
+% are brighter than the mid-gray
+imshow(uint8((BPF_img + 128)));
+title("Bandpass Filtered");
+
+subplot(2,2,4);
+imshow(uint8((HPF_img + 128)));
+title("Highpass Filtered");
+
+sgtitle("Figure 1 - Images in the Spatial Domain");
+% 3.6 Figure 2 - Amplitude Spectra of Each Image
+figure(9);
+subplot(2,2,1);
+F_c = log(1+abs(F_center));
+% Find the brightest point in the frequency domain
+r_max = max(F_c(:));
+r_min = 0;
+% Do the normalization so that the brightest white point
+% maps to the brightest value 1 and all other values are 
+% between 0 and 1
+F_norm = (F_c / r_max);
+imshow(F_norm);
+title("Original");
+
+subplot(2,2,2);
+LPF_c = log(1+abs(LPF_img_center));
+LPF_norm = (1./(r_max-r_min)).*(LPF_c - r_min);
+imshow(LPF_norm);
+title("Lowpass Filtered");
+
+subplot(2,2,3);
+BPF_c = log(1+abs(BPF_img_center));
+BPF_norm = (1./(r_max-r_min)).*(BPF_c - r_min); 
+imshow(BPF_norm);
+title("Bandpass Filtered");
+
+subplot(2,2,4);
+HPF_c = log(1+abs(HPF_img_center));
+HPF_norm = (1./(r_max-r_min)).*(HPF_c - r_min); 
+imshow(HPF_norm);
+title("Highpass Filtered");
+
+sgtitle("Figure 2 - Amplitude Spectra of Each Image")
+% Observations:
+% Because we shifted the frequency domain, most important information are concentrated around the center point, and other less important information are away from the center point. 
+% 1) The lowpass filtered image is blurred than the original one. The possible reason is that lowpass filter keep the center part in the frequency spectra, which means it keep most important information of the original image. But the lowpass filter blocks other less important information as well, so the filtered image is blurred compared to the original image.
+% 2) The resulted image using bandpass filter can see the basic layout of the the object (i.e. bridge), however it is hard to recognize without the original image. It is possibly because the bandpass filter pass the information close to the center part but without the center part, which means it can still get some important information but not those most important information of the original image. Therefore the filtered image can still shows some features (i.e. some layouts of the bridge).
+% 3) The highpass filtered image can only see some unclear edges of the object, which is very hard to recognize what the image is. It is because the highpass filter blocks all important information in the center and pass the least important information of the original image.
+
+% Question 4 - Image Deblurring
+% 4.1 Spatial Domain Gaussian Filter Creation
+clear;
+
+img = imread('text.tif');
+
+gf = zeros(21,21);
+gf_row = 21;
+gf_col = 21;
+center = round(gf_row/2);
+
+% Do the normalized Gaussian Filter
+sigma = 1;
+for i = 1:21
+    for j = 1:21
+        gf(i,j) = (1/(2*pi*sigma^2))*exp(-((i-center)^2+(j-center)^2)/(2*sigma^2));
+    end
+end
+gf = gf./sum(gf(:));
+% 4.2 Blurred Image
+% Make a convolution between image and Gaussian Filter
+ConvImg = conv2(img,gf);
+[row1,col1] = size(ConvImg);
+
+% Crop the central part of the image
+cropImg1 = ConvImg(row1/2 - 127:row1/2 + 128, col1 / 2 - 127: col1 / 2 + 128);
+% 4.3 Apply 2D-DFT and Inverse 2D-DFT of the Gaussian Filter
+% Change Gaussian Filter into the frequency domain
+gauss_F = fft2(gf);
+% Take the reciprocal value of all frequency domain Gaussian Filter
+% Coefficients
+gauss_F_reci = 1./gauss_F;
+
+% Do the inverse 2D-DFT of the Gaussian Filter in frequency domain
+gf_inv = real(ifft2(gauss_F_reci));
+% 4.4 Deblurred Image
+ConvImg2 = conv2(ConvImg, gf_inv);
+[row2,col2] = size(ConvImg2);
+
+cropImg2 = ConvImg2(row2/2 - 127:row2/2 + 128, col2 / 2 - 127: col2 / 2 + 128);
+% 4.5 Figure 1 - Demostration
+figure(10);
+subplot(2,3,1);
+imshow(img);
+title("Origial Image - text");
+
+subplot(2,3,2);
+imshow(uint8(cropImg1));
+title("Blurred Image");
+
+subplot(2,3,3);
+imshow(uint8(cropImg2));
+title("Deblurred Image");
+
+% Calculate 2D-DFT of the original image into frequency domain
+subplot(2,3,4);
+F = fft2(img);
+F_center = fftshift(F);
+F_c = log(1+abs(F_center));
+% Find the brightest point in the frequency domain
+r_max = max(F_c,[],'all');
+r_min = 0;
+F_norm = (1./(r_max-r_min)).*(F_c - r_min);
+imshow(F_norm);
+title("Original Spectra");
+
+subplot(2,3,5);
+crop1_F = fft2(cropImg1);
+crop1_F_center = fftshift(crop1_F);
+crop1_F_c = log(1+abs(crop1_F_center));
+r_max = max(crop1_F_c,[],'all');
+crop1_F_norm = (1./(r_max-r_min)).*(crop1_F_c - r_min);
+imshow(crop1_F_norm);
+title("Blurred Image Spectra");
+
+subplot(2,3,6);
+crop2_F = fft2(cropImg2);
+crop2_F_center = fftshift(crop2_F);
+crop2_F_c = log(1+abs(crop2_F_center));
+r_max = max(crop2_F_c,[],'all');
+crop2_F_norm = (1./(r_max-r_min)).*(crop2_F_c - r_min);
+imshow(crop2_F_norm);
+title("Deblurred Image Spectra");
+sgtitle("Figure 1 - Images and Spectras");
+% 4.6 Figure 2 - Magnitude Spectrum
+figure(11);
+subplot(2,2,1);
+mesh(gf);
+title("Spatial Domain GF");
+
+subplot(2,2,2);
+mesh(abs(fftshift(gauss_F)));
+title("Frouier Domian GF");
+
+subplot(2,2,3);
+mesh(gf_inv);
+title("Spatial Domain inverse GF");
+
+subplot(2,2,4);
+mesh(abs(fftshift(gauss_F_reci)));
+title("Frouier Domain inverse GF");
+
+sgtitle("Figure 2 - Magnitude Spectrum");
+% Observation:
+% From the results between original image and deblurred image. In theory, these two images should be exactly same. However, when we see the deblurred image clearly, there are some light shadows in the deblurred image. 
+
+Question 5 - Image Interpolation
+clear;
+
+img = imread('einstein.tif');
+img = double(img);
+[row, col] = size(img);
+factor = 3;
+% 5.1 Downsample the Image
+downSampled = downSample(img,factor);
+% 5.2 Upsample the Image with Zero-Padding
+upSampled = upSample(downSampled,row, col, factor);
+% 5.3 Interpolated Image with Nearest Neighbor Method
+mask3n = ones(1,factor);
+nnImg_h = zeros(row, col);
+nnImg = zeros(row,col);
+
+for i = 1 : row
+    nnImg_h(i,:) = conv(upSampled(i,:), mask3n, 'same');
+end
+
+for j = 1 : col
+    nnImg(:,j) = conv(nnImg_h(:,j),mask3n, 'same');
+end
+
+% 5.4 Interpolated Image with Bilinear Interpolation Method
+mask3b = BIM(factor);
+bimImg_h = zeros(row,col);
+bimImg = zeros(row,col);
+
+for i = 1 : row
+    bimImg_h(i,:) = conv(upSampled(i,:), mask3b, 'same');
+end
+
+for j = 1 : col
+    bimImg(:,j) = conv(bimImg_h(:,j), mask3b, 'same');
+end
+
+% 5.5 Figure 1 - Demo for Case D = 3 
+figure(12);
+subplot(2,2,1);
+imshow(img,[]);
+title("Original Image");
+
+subplot(2,2,2);
+imshow(upSampled,[]);
+title("Upsampled Image");
+
+subplot(2,2,3);
+imshow(nnImg,[]);
+title("Interpolated Image (Nearest Neighbor Method)");
+
+subplot(2,2,4);
+imshow(bimImg, []);
+title("Interpolated Image (Bilinear Interpolation)");
+
+sgtitle("Figure 1 - Demo for Case D = 3");
+% 5.6 Figure 2 - Deom for Case D = 7
+factor = 7;
+% Downsample the original image
+downSampled7 = downSample(img,factor);
+% Upsample the downsampled iamge
+upSampled7 = upSample(downSampled7,row, col, factor);
+
+% Upsample by Nearest neighbor method
+mask7n = ones(1,factor);
+nnImg_h7 = zeros(row,col);
+nnImg7 = zeros(row,col);
+
+for i = 1 : row
+    nnImg_h7(i,:) = conv(upSampled7(i,:),mask7n, 'same');
+end
+
+for j = 1 : col
+    nnImg7(:,j) = conv(nnImg_h7(:,j),mask7n, 'same');
+end
+
+% Upsmaple by Biliniear Interpolation
+mask7b = BIM(factor);
+bimImg_h7 = zeros(row,col);
+bimImg7 = zeros(row,col);
+
+for i = 1 : row
+    bimImg_h7(i,:) = conv(upSampled7(i,:),mask7b, 'same');
+end
+
+for j = 1 : col
+    bimImg7(:,j) = conv(bimImg_h7(:,j),mask7b, 'same');
+end
+
+figure(13);
+subplot(2,2,1);
+imshow(img,[]);
+title("Original Image");
+
+subplot(2,2,2);
+imshow(upSampled7,[]);
+title("Upsampled Image");
+
+subplot(2,2,3);
+imshow(nnImg7,[]);
+title("Interpolated Image (Nearest Neighbor Method)");
+
+subplot(2,2,4);
+imshow(bimImg7, []);
+title("Interpolated Image (Bilinear Interpolation)");
+
+sgtitle("Figure 2 - Demo for Case D = 7");
+% Observation:
+% 1) With the increaing number of the factor D, the upsampled images become blurrer and blurrer.
+% 2) Upsampled images using nearest neighbor interpolation make the image mosaic-styled, while the images using bilinear interpolation make the image much more smoother (still blurred) compared to the corresponding image using nearest neighbor interpolation.
+
+Function 1 -  Ideal Lowpass Filters Function
+function filter = lowpassFilter(src, d0)
+    [row, col] = size(src);
+    row_center = row/2;
+    col_center = col/2;
+    d0 = row_center * d0;
+    
+    filter = zeros(row,col);
+    for i = 1 : row
+        for j = 1 : col
+            dist = sqrt((i - row_center)^2 + (j - col_center)^2);
+            if dist < d0
+                filter(i,j) = 1;
+            else
+                filter(i,j) = 0;
+            end
+        end
+    end
+end
+% Function 2 - Ideal Bandpass Filters Function
+function filter = bandpassFilter(src, d0, d1)
+    [row, col] = size(src);
+    row_center = row/2;
+    col_center = col/2;
+    d0 = row_center * d0;
+    d1 = row_center * d1;
+    
+    filter = zeros(row,col);
+    for i = 1 : row
+        for j = 1 : col
+            dist = sqrt((i - row_center).^2 + (j - col_center).^2);
+            if dist < d0
+                filter(i,j) = 0;
+            elseif dist > d1
+                filter(i,j) = 0;
+            else
+                filter(i,j) = 1;
+            end
+        end
+    end
+end
+% Function 3 -  Ideal Highpass Filters Function
+function filter = highpassFilter(src, d1)
+    [row, col] = size(src);
+    row_center = row/2;
+    col_center = col/2;
+    d1 = row_center * d1; 
+    
+    filter = zeros(row,col);
+    for i = 1 : row
+        for j = 1 : col
+            dist = sqrt((i - row_center).^2 + (j - col_center).^2);
+            if dist <= d1
+                filter(i,j) = 0;
+            else
+                filter(i,j) = 1;
+            end
+        end
+    end
+end
+% Function 4 - Downsample Image Function
+function resizeImg = downSample(src, factor)
+    resizeImg = src((factor+1)/2:factor:end, (factor+1)/2:factor:end);
+end 
+% Function 5 - Upsample Image With Zero-Padding Function
+function resizeImg = upSample(src, row, col ,factor)
+    resizeImg = zeros(row,col);
+    for i = 1 : row
+        for j = 1 : col
+            if (mod(i,factor) == 0 && mod(j,factor) == 0)
+                resizeImg(i,j) = src(i/factor,j/factor);
+            end
+        end
+    end 
+end 
+
+% Function 6 - Interpolation with Bilinear Interpolation Method Function
+function mask_h = BIM(factor)
+    mask_h = ones(1,2*factor-1);
+    for i = factor - 1 : -1 : 1
+        mask_h(1,i) = (1 - (1/factor) * (factor - i));
+    end
+    for i = factor + 1 : 2*factor-1
+        mask_h(1,i) = (1 - (1/factor) * (i - factor));
+    end
+ 
+end
+
+##### SOURCE END #####
+--></body></html>
