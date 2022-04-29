@@ -1,0 +1,22 @@
+8c8
+< from map_original import Map
+---
+> from map_modified import Map
+19d18
+<     msg_print()
+28c27
+<             print("Format Wrong!")
+---
+>             print("Error: Incorrect input format")
+30,31d28
+<     # print("Finished reading input")
+<     print("You have quited the system!")
+35,42d31
+< 
+< def msg_print():
+<     print("================================================")
+<     print("Welcome to Use the System!")
+<     print("Please Show Your Command Below:")
+<     print("* Use command add, mod, rm, gg to operate")
+<     print("* Use Ctrl-D to quit")
+<     print("================================================\n")
