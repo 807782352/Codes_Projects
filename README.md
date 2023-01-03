@@ -1,2 +1,2 @@
 # Projects
-Some self practical projects in Java, Python and C++
+Some academic and personal projects written in Java, Python and C++
